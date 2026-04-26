@@ -1,9 +1,10 @@
-package cadence_api.habit.service;
+package cadence_api.habit.service.impl;
 
 import cadence_api.habit.dto.HabitRequest;
 import cadence_api.habit.dto.HabitResponse;
 import cadence_api.habit.model.Habit;
 import cadence_api.habit.repository.HabitRepository;
+import cadence_api.habit.service.HabitService;
 import cadence_api.user.model.User;
 import cadence_api.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

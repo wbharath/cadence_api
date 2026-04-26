@@ -1,13 +1,13 @@
-package cadence_api.habit.service;
+package cadence_api.habit.service.impl;
 
 import cadence_api.habit.dto.CalendarResponse;
-import cadence_api.habit.dto.HabitResponse;
 import cadence_api.habit.dto.LogRequest;
 import cadence_api.habit.dto.LogResponse;
 import cadence_api.habit.model.Habit;
 import cadence_api.habit.model.HabitLog;
 import cadence_api.habit.repository.HabitLogRepository;
 import cadence_api.habit.repository.HabitRepository;
+import cadence_api.habit.service.HabitLogService;
 import cadence_api.user.model.User;
 import cadence_api.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

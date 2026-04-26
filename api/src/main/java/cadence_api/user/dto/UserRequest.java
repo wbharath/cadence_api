@@ -1,17 +1,20 @@
 package cadence_api.user.dto;
 
+
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Builder
-public class UserResponse {
+public class UserRequest {
 
-    private Long  id;
+    @NotBlank
     private String name;
+    @NotBlank
     private String email;
+    @NotBlank
+    private String timezone;
 }
