@@ -4,6 +4,7 @@ import cadence_api.common.exception.DuplicateLogException;
 import cadence_api.common.exception.HabitNotFoundException;
 import cadence_api.common.exception.LogNotFoundException;
 import cadence_api.common.exception.UserNotFoundException;
+import cadence_api.common.service.NotificationService;
 import cadence_api.habit.dto.CalendarResponse;
 import cadence_api.habit.dto.LogRequest;
 import cadence_api.habit.dto.LogResponse;
@@ -29,6 +30,7 @@ public class HabitLogServiceImpl implements HabitLogService {
     private final HabitLogRepository habitLogRepository;
     private final HabitRepository habitRepository;
     private final UserRepository userRepository;
+    private final NotificationService notificationService;
     @Override
     @Transactional
     public LogResponse logHabit(LogRequest logRequest) {
@@ -52,6 +54,7 @@ public class HabitLogServiceImpl implements HabitLogService {
                 .build();
 
         HabitLog saved = habitLogRepository.save(habitLog);
+        notificationService.sendHabitCompletionAlert(habit.getName());
         return mapToResponse(saved);
     }
 

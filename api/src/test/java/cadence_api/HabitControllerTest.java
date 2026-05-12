@@ -15,7 +15,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -34,7 +34,7 @@ public class HabitControllerTest {
     @Test
     void createHabit_ReturnsCreated() throws Exception {
 
-        // ARRANGE
+
         HabitRequest request = new HabitRequest();
         request.setUserId(1L);
         request.setName("Meditation");
@@ -49,12 +49,30 @@ public class HabitControllerTest {
         when(habitService.createHabit(any(HabitRequest.class)))
                 .thenReturn(response);
 
-        // ACT + ASSERT
         mockMvc.perform(post("/api/habits")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.name").value("Meditation"))
                 .andExpect(jsonPath("$.userId").value(1L));
+    }
+
+    @Test
+    void createHabit_ReturnsBadRequest_WhenNameIsBlank() throws Exception {
+        HabitRequest request = new HabitRequest();
+        request.setUserId(1L);
+        request.setName("");
+        request.setType(HabitType.MENTAL);
+        request.setFrequency(FrequencyType.DAILY);
+        request.setColor("#6366f1");
+
+
+        mockMvc.perform(post("/api/habits")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isBadRequest());
+
+        verify(habitService, never()).createHabit(any(HabitRequest.class));
+
     }
 }
