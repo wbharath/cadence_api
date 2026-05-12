@@ -15,21 +15,22 @@ import lombok.NoArgsConstructor;
 @Data
 public class HabitRequest {
 
-    @NotNull
+    @NotNull(message = "User ID is required")
     private Long userId;
 
-    @NotBlank
+    @NotBlank(message = "Habit name is required")
     private String name;
+
+    @NotNull(message = "Habit type is required")
+    private HabitType type;
+
+    @NotNull(message = "Frequency is required")
+    private FrequencyType frequency;
+
+    @NotBlank(message = "Color is required")
+    private String color;
 
     private String description;
 
-    @NotNull
-    private HabitType type;
-
-    @NotNull
-    private FrequencyType frequency;
-
-    @NotBlank
-    private String color;
 
 }
